@@ -18,7 +18,16 @@ function Gameboard() {
     const placeToken(row, column, player) {
         if (board[row][column].getValue() === "") {
             board[row][column].addToken(player);
+        } else {
+            // the chosen cell is not available 
+            return;
         }
+    }
+
+    // logic for printing the board (for console gameplay)
+    const printBoard = () => {
+        const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()));
+        console.log(boardWithCellValues);
     }
 }
 
