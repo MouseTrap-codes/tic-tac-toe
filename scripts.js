@@ -18,9 +18,10 @@ function Gameboard() {
     const placeToken = (row, column, player) => {
         if (board[row][column].getValue() === "") {
             board[row][column].addToken(player);
+            return true;
         } else {
             // the chosen cell is not available 
-            return;
+            return false;
         }
     }
 
@@ -117,21 +118,55 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
                 );
             }
 
-            won = filledRow || filledColumn() || filledDiagonal();
+            // draw detection -> if board is full and won is false
+            const detectDraw = function() {
+                let numEmpty = 0;
+                let boardState = board.getBoard();
+                for (let i = 0; i < boardState.length; i++) {
+                    for (let j = 0; j < boardState[0].length; j++) {
+                        if (boardState[i][j].getValue() === "") {
+                            numEmpty++;
+                        }
+                    }
+                }
 
-            return won;
+                if (numEmpty === 0) {
+                    return "draw";
+                }
+
+                return "keep playing";
+            }
+
+            let toReturn;
+
+            won = filledRow || filledColumn() || filledDiagonal();
+            if (won) {
+                toReturn = "won";
+            } else {
+                toReturn = detectDraw();
+            }
+
+            return toReturn;
 
         }
 
     const playRound = (row, column) => {
         // place a token for current player
         console.log(`Placing ${getActivePlayer().name}'s ${getActivePlayer().token} into row ${row}, column ${column}`);
-        board.placeToken(row, column, getActivePlayer().token);
-
+        const success = board.placeToken(row, column, getActivePlayer().token);
+        if (!success) {
+            console.log("Invalid move. Cell already taken.");
+            return;
+        }
+        
          // win conditions here!!!
-        if (winConditionMet()) {
+        let winCondition = winConditionMet();
+        if (winCondition === "won") {
             console.log(`${getActivePlayer().name} has won!!!`);
             return;
+        } else if (winCondition === "draw") {
+            console.log(`The game is a draw!`);
+            return
         }
         
         // switch player turn
