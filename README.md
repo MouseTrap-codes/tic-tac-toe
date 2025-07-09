@@ -21,7 +21,7 @@ A web-based, modular, and interactive Tic Tac Toe game. Built from scratch using
 
 ## 🚀 Live Preview
 
-Just open `(https://mousetrap-codes.github.io/tic-tac-toe/)` in your browser. No build step or server required.
+Just open https://mousetrap-codes.github.io/tic-tac-toe/ in your browser. No build step or server required.
 
 ---
 
