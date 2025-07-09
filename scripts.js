@@ -226,23 +226,31 @@ function ScreenController() {
         location.reload(); // 🔄 reloads page to restart game
     });
 
+    let gameOver = false;
+
     // event listener for the board
     function clickHandlerBoard(e) {
+        // make sure user selected a cell and not a gap in between 
+        if (gameOver || !e.target.matches("button.cell")) return;
+
         const selectedCell = {
             row: parseInt(e.target.dataset.row), 
             column: parseInt(e.target.dataset.column)
         };
 
-        // make sure user selected a cell and not a gap in between 
-        if (!e.target.matches("button.cell")) return;
+        
+
+        
 
         const result = game.playRound(selectedCell.row, selectedCell.column);
+        updateScreen();
         if (result && (result.type === "won" || result.type === "draw")) {
             modalMessage.textContent = result.message;
             modal.showModal();
+            gameOver = true;
             return;
         }
-        updateScreen();
+        
     }
     boardDiv.addEventListener("click", clickHandlerBoard);
 
