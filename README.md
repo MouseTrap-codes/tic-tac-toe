@@ -18,7 +18,7 @@ This version uses a 3x3 grid and runs entirely via terminal logs — no UI requi
 
 ## 🎡 How to Play
 
-1. Open the game here: , and then open the console using dev tools.
+1. Open the game here: https://mousetrap-codes.github.io/tic-tac-toe/, and then open the console using dev tools.
 
 2. The game automatically starts with:
 
