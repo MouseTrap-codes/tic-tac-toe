@@ -4,12 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Tic Tac Toe (Console)</title>
+
+    <title>Tic Tac Toe</title>
 </head>
 <body>
+
     <div class="container">
-        <h1 class="turn"></h1>
-        <div class="board"></div>
+        <div class="title-text">
+            <div class="title">Tic Tac Toe</div>
+            <div class="subheading">Battle of Wits. 3x3 Glory.</div>
+        </div>
+           
+        <div class="game-elements">
+            <div class="turn"></div>
+            <div class="board"></div>
+        </div>
+
+       <dialog class="modal">
+            <p class="modal-message"></p>
+            <button id="close-modal">Play Again</button>
+        </dialog>
+
     </div>
     
     <script src="scripts.js"></script>

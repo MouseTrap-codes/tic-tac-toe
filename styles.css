@@ -1,23 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", "Helvetica Neue", sans-serif;
+    background-color: #F9FAFB;
+    color: #111827;
+}
+
+.container {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 24px;
+
+    background-color: #F9FAFB;
+}
+
+.title-text {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
 .board {
   display: grid;
   height: 500px;
   width: 500px;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  border: 1px solid black;
-  gap: 2px;
-  padding: 2px;
-  background-color: yellow;
+  gap: 4px;
+  padding: 4px;
+
+  background-color: #E5E7EB;
+  border-radius: 8px;
+
+
+
+
 }
 
 .cell {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
+  border: 1px solid #D1D5DB;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #111827;
   text-align: center;
   font-size: 2rem;
-  border: 1px solid grey;
-  background: lightyellow;
   cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  color: #111827;
+
+  
 }
 
+.cell:hover {
+    background-color: #F3F4F6;
+    transform: scale(1.02);
+}
+
+.turn {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* modal */
+.modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 2rem 2.5rem;
+  width: 90%;
+  max-width: 400px;
+  background-color: #ffffff;
+  border: 2px solid #111827;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+
+  font-family: "Inter", "Helvetica Neue", sans-serif;
+  color: #111827;
+}
+
+.modal-message {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+#close-modal {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  background-color: #111827;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#close-modal:hover {
+  background-color: #374151;
+  transform: scale(1.03);
+}

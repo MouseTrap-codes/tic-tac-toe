@@ -162,11 +162,11 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
          // win conditions here!!!
         let winCondition = winConditionMet();
         if (winCondition === "won") {
-            console.log(`${getActivePlayer().name} has won!!!`);
-            return;
+            return {type: "won", message:`${getActivePlayer().name} has won!!!`};
+            // return;
         } else if (winCondition === "draw") {
-            console.log(`The game is a draw!`);
-            return
+            return {type: "draw", message: `The game is a draw!`};
+            // return
         }
         
         // switch player turn
@@ -211,19 +211,37 @@ function ScreenController() {
                 cellButton.classList.add("cell");
                 cellButton.dataset.row = rowIndex;
                 cellButton.dataset.column = colIndex;
+                cellButton.textContent = cell.getValue();
                 boardDiv.appendChild(cellButton);
             });
         });
     }
 
+    // modal stuff
+    const modal = document.querySelector(".modal");
+    const modalMessage = document.querySelector(".modal-message");
+    const closeModalBtn = document.getElementById("close-modal");
+    closeModalBtn.addEventListener("click", () => {
+        modal.close();
+        location.reload(); // 🔄 reloads page to restart game
+    });
+
     // event listener for the board
     function clickHandlerBoard(e) {
-        const selectedCell = {row: e.target.dataset.row, column: e.target.dataset.column};
+        const selectedCell = {
+            row: parseInt(e.target.dataset.row), 
+            column: parseInt(e.target.dataset.column)
+        };
 
         // make sure user selected a cell and not a gap in between 
-        if (!selectedCell) return;
+        if (!e.target.matches("button.cell")) return;
 
-        game.playRound(selectedCell.row, selectedCell.column);
+        const result = game.playRound(selectedCell.row, selectedCell.column);
+        if (result && (result.type === "won" || result.type === "draw")) {
+            modalMessage.textContent = result.message;
+            modal.showModal();
+            return;
+        }
         updateScreen();
     }
     boardDiv.addEventListener("click", clickHandlerBoard);
