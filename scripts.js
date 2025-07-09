@@ -181,8 +181,55 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
     return {
         playRound, 
-        getActivePlayer
+        getActivePlayer,
+        getBoard: board.getBoard
     };
 }
 
-const game = GameController();
+// const game = GameController();
+
+function ScreenController() {
+    const game = GameController();
+    const playerTurnDiv = document.querySelector(".turn");
+    const boardDiv = document.querySelector(".board");
+
+    const updateScreen = () => {
+        // clear the board
+        boardDiv.textContent = "";
+
+        // get latest board state and player turn
+        const board = game.getBoard();
+        const activePlayer = game.getActivePlayer();
+
+        // display player's turn
+        playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
+
+        // render board squares
+        board.forEach((row, rowIndex) => {
+            row.forEach((cell, colIndex) => {
+                const cellButton = document.createElement("button");
+                cellButton.classList.add("cell");
+                cellButton.dataset.row = rowIndex;
+                cellButton.dataset.column = colIndex;
+                boardDiv.appendChild(cellButton);
+            });
+        });
+    }
+
+    // event listener for the board
+    function clickHandlerBoard(e) {
+        const selectedCell = {row: e.target.dataset.row, column: e.target.dataset.column};
+
+        // make sure user selected a cell and not a gap in between 
+        if (!selectedCell) return;
+
+        game.playRound(selectedCell.row, selectedCell.column);
+        updateScreen();
+    }
+    boardDiv.addEventListener("click", clickHandlerBoard);
+
+    // initial render
+    updateScreen();
+}
+
+ScreenController();
